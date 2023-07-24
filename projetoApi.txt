@@ -1,0 +1,349 @@
+
+Bom dia meu caros aquiestou armazenando as informações referente a craição desta pequena API.
+
+referencia da aula:
+https://www.udemy.com/course/curso-web/learn/lecture/9344762#overview  
+
+comecei criando uma pasta: cirandoApi
+e dei este comando :
+
+     touch "index.js"; touch "index.html" ; touch "styles.css" ; npm init -y ; npm i --save-dev express@4.16.2 -E; npm i --save-dev nodemon;
+
+     crianod 3 arquivos  dando ocomando para instalar os arquivos packageJson  e intalr o express com a versão exata  @4.16.2 e o atributo -E seria justamente para isso  : instalar a versão que queremos que é a @4.16.2
+     
+executei o comando : code .
+
+comando: (code .)para abrir  ovs code na pasta.
+
+     
+bom agora  vamos criar masi sum apasta chamada de src 
+
+comando : mkdir "src"
+
+agora vamos mover os arquivos css ,js ,html para está pasta :
+
+comando : mv index.html script.js style.css src
+     
+     
+     vamos criar nosso arquivo .gitignore e jogar o nome das pasta node_modules para qundo subirmos esse repositorio ela seja totalmente iguinorada.
+     
+    e vamos tambem dar o :
+    
+    comando ; git init 
+    
+    Para que essa nossa pasta possa ser um repositorio vinculada com o github
+    
+    agora damos este comando:
+    
+    touch .gitignore; code .gitignore;
+    
+    Para abrir com vscode este arquivo  e dentro dele colocamos  o nome da pasta node_modules e salvamos e fechamos o vscode.
+    
+    Bom agora nos vamos no gitHub e criamos esse repositorio para podermos subila da nossa maqui local para o repositorio do gitHub 
+    
+    
+Agora vamos entrar no arquivo package.json e vamos fazer algumas alterações
+
+no atributo "main": "src/script.js",
+
+E nos scripts vamos criar um comando chamdo ; "start":"nodemon"
+
+Atençao quado comecei o projeto esqueci de dar  o comando : npm init -y para ele traser de fato algumas informações do nosso projeto no arquivo  package.json 
+
+para corregir este problema basta vc dar o comando:
+    
+    npm init -Y
+    
+E então ele vai criar o arquivo completo com todas as dependencias.
+
+pois vamos precisar modificar o atributo main e script .
+
+abrindo o nosso arquivopackage.json vamos encontrar essas informações ;
+onde estaremos modificando para que o main possa escutar as alterções em nosso arquivo que esta localizado em src/script.js e em nosso script podemos dar o comando npm start para inicializar a nossa aplicação.
+    {
+  "dependencies": {
+    "express": "^4.16.2"
+  },
+  "devDependencies": {
+    "nodemon": "1.14.11"
+  },
+  "name": "cirando-um-apequena-api",
+  "version": "1.0.0",
+  "main": "src/script.js",
+  "scripts": {
+    "start":"nodemon",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LeandroMarquesN/projetoPequenaApI.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LeandroMarquesN/projetoPequenaApI/issues"
+  },
+  "homepage": "https://github.com/LeandroMarquesN/projetoPequenaApI#readme",
+  "description": ""
+}
+
+
+
+vamos instalar o nodemon com o camonado  :
+npm i --save nodemon
+
+o nodemon e usado nas dependecias de desenvolvimeto  não usamos o nodemon na produção
+
+então poderiamos ter instalado ele assim:
+
+npm i --save-dev nodemon@1.14.11 -E
+
+bom agora que fizemos as correções no scripts  e instalmos o nodemosn para que fique salvo nas dependecias de desemvolvimento, vamos alterar a porta para que execute na saida 3033 para isso basta ir no script.js e atribuir o valor  3033 para a variavel  porta  
+
+e agora podemos das o comando :
+    npm start 
+para rodar nosso servidor.
+e termos essa resposta:
+
+usuario@usuario-desktop:~/tecnicasParaPercorrerArray/Cirando um apequena api$ npm start
+
+> cirando-um-apequena-api@1.0.0 start
+> nodemon
+
+[nodemon] 1.14.11
+[nodemon] to restart at any time, enter `rs`
+[nodemon] watching: *.*
+[nodemon] starting `node src/script.js`
+Servidor executando na porta 3033
+
+
+perceba que colocamos uma função para executar o console.log(coma a menssagem de executando na porta 3033 para sabermos de fato o que esta acontecendo.
+
+Agora como ja tenho o postman instalado no computador ele será  o aplicativo que vamos usar para testar as requisições http e ondereçõ que vamos acessar será:
+
+http://localhost:3033/produtos
+
+bom porque estamos acessando http://localhost:3033 
+
+pois e o endereco que estamos com nosso servidor local rodando assim que damos o comando npm stat na pasta da nosso projeto o nodemon vai executar permitindo que possamos ter o acesso as informações 
+e porque do: /produto
+
+O /produto representa a nossa url que queremos acessr dentro do arquivo script.js temos este codigo:
+
+const porta = 3033
+
+const express = require('express')
+const app = express()
+
+app.get('/produto', (req, res, next) => {
+    res.send(
+        // Objeto enviado
+        { nome: "Notebook", preco: 123.45 }
+    )
+})
+// aqui como estou utilizando o metodo send será convertido diretamnte para json
+
+
+// Aqui estou colocando o express para ficar executando na porta que escolhemos  3003 por isso que estou utilizando o metodo  listen
+
+app.listen(porta, () => {
+    console.log(`Servidor executando na porta ${porta}`)
+})
+
+onde na linha que está marcada temos uma requisição http por meio do express fazendo uma requisição do tipo get  onde estamos querendo pegar informações da url /produto
+
+mas para essa requisição funcionar precisamos que servidor esteja rodando  assim:
+
+usuario@usuario-desktop:~/tecnicasParaPercorrerArray/projetoApi$ npm start
+
+> cirando-um-apequena-api@1.0.0 start
+> nodemon
+
+[nodemon] 1.14.11
+[nodemon] to restart at any time, enter `rs`
+[nodemon] watching: *.*
+[nodemon] starting `node src/script.js`
+Servidor executando na porta 3033
+
+Agora digamso que eu queira fazer um requisição do tipo  post ele vai me dizer que eu não posso enviar ou fazer post na url/produto isso porque em script.js não temos essa função preparada.
+
+
+
+================================================================================
+Dando Continuidade :
+ref: https://www.udemy.com/course/curso-web/learn/lecture/9344764#overview 
+
+vamos criar um novo arquivo para simular um banco de dados
+Onde o nome do arquivo será BancoDeDados.js 
+
+com este codigo:
+
+const sequence = {
+    _id: 1,
+    
+    get id() {
+        return this._id++
+    }
+}
+toda vez que fisermos sequence._id  será retornado o id acecentando  +1 para simbolizar um contador
+
+E o nosso codigo estã assim referente ao arquivo BancoDeDados.js
+
+// refe: https://www.udemy.com/course/curso-web/learn/lecture/9344764#overview
+
+const sequence = {
+    _id: 1,
+
+    get id() {
+        return this._id++
+    }
+}
+
+const produtos = {}
+
+function salvarProduto(produto) {
+    if (!produto.id) produto.id = sequence.id
+    produtos[produto.id] = produto
+    return produto
+}
+
+function getProduto(id) {
+    return produtos[id] || {}
+}
+
+function getProdutos() {
+    return Object.values(produtos)
+}
+
+// deixando as funções acima acessiveis ou visiveis para outros arquivos precisamos chamar o module.exports{} e colcar as funções que vao ficar visisveis
+
+module.exports = {
+    salvarProduto,
+    getProduto,
+    getProdutos
+}
+
+
+Agora vamos implementar mais um afunção para fazer o post :
+
+então nosso codigo vai ficar:
+
+const porta = 3033
+
+const express = require('express')
+const app = express()
+// importando modulo do arquivo BAncoDeDados.js
+const bancoDedados = require('./BancoDeDados')
+
+app.get('/produtos', (req, res, next) => {
+    res.send(
+        // chamando função externa  do arquivo BancoDeDados.js
+        bancoDedados.getProdutos()
+    )
+})
+// aqui como estou utilizando o metodo send será convertido diretamnte para json
+
+// url com parametro id para trazer um produto especifico
+app.get('/produtos/:id', (req, res, next) => {
+    res.send(bancoDedados.getProduto(req.params.id))
+})
+
+// aqui ja teremos um função post para salvar um novo produto
+app.post('/produtos', (req, res, next) => {
+    const produto = bancoDedados.salvarProduto({
+        nome: req.body.name,
+        preco: req.body.preco
+
+    })
+    res.send(produto) // send coneverte em json
+})
+
+// Aqui estou colocando o express para ficar executando na porta que escolhemos  3003 por isso que estou utilizando o metodo  listen
+
+app.listen(porta, () => {
+    console.log(`Servidor executando na porta ${porta}`)
+})
+
+================================================================================================================================================================
+
+Bom agora que estamos com tudo pronto precisamos tratar os dados do lado do servidor e para isso precisamos que nosso dados sejam convertidos para objeto e para isso vamos instar o (bodyparser) 
+pois se não passar um aurl no corpo da requisição o baody-parser vai tratala transformando em objeto e posermos acessala.
+com  o comando :
+    
+    npm i --save body-parser
+
+    
+    depóis de instalados vamos usar o require('body-parser) para trazer este modulo para nosso uso e atribuilo em um contante
+    nosso codigo vai ficar assim:
+    
+    // ====== declarando variaveis 
+const porta = 3033
+
+
+// ==== importando modulos =====
+const express = require('express')
+const app = express()
+// importando modulo do arquivo BAncoDeDados.js
+const bancoDedados = require('./BancoDeDados')
+// Importando o bary parser para tratar os arquivos para json naparte do seridor
+const bodyParser = require('body-parser')
+
+
+
+
+// === criando fuções com express para trabalhar com  http 
+
+app.use(bodyParser.urlencoded({ extended: true }))
+
+app.get('/produtos', (req, res, next) => {
+    res.send(
+        // chamando função externa  do arquivo BancoDeDados.js
+        bancoDedados.getProdutos()
+    )
+})
+// aqui como estou utilizando o metodo send será convertido diretamnte para json
+
+// url com parametro id para trazer um produto especifico
+app.get('/produtos/:id', (req, res, next) => {
+    res.send(bancoDedados.getProduto(req.params.id))
+})
+
+// aqui ja teremos um função post para salvar um novo produto
+app.post('/produtos', (req, res, next) => {
+    const produto = bancoDedados.salvarProduto({
+        nome: req.body.name,
+        preco: req.body.preco
+
+    })
+    res.send(produto) // send coneverte em json
+})
+
+// Aqui estou colocando o express para ficar executando na porta que escolhemos  3003 por isso que estou utilizando o metodo  listen
+
+app.listen(porta, () => {
+    console.log(`Servidor executando na porta ${porta}`)
+})
+////////////////////////////////////////////////////////////////
+
+lembrando que para testar mos nossa api precisamos abir a pasta do nosso projtoApi ir na pastasrc endentro desta pasta abrir o terminal dar o comando : npm start e deposi abirmos o nosso  postman para tesstarmos as requisições e colocarmos a url: http://localhost:3033/produtos
+
+declararmos o metodo post para enviar os dados selecionarmos o body selecionarmos o x-www.form-urlencoded e no key colocarmos nome value o nome produto e assim sucessivamente
+
+
+preciso colocar o passo a passo do meto do put para alteração de dados
+
+preciso colcoar a explicação do methodo delete para exculsao de dados
+
+
+
+
+
+referncia para saber mais sobre o git e seus comandos
+
+https://www.codigofonte.com.br/artigos/top-25-comandos-do-git#:~:text=git%20fetch&text=A%20partir%20desse%20comando%2C%20voc%C3%AA,sua%20vers%C3%A3o%20local%20do%20reposit%C3%B3rio.  
+    
+    
+    
+
+     
